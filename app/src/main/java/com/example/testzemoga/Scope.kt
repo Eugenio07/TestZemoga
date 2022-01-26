@@ -1,4 +1,4 @@
-package com.example.interactivemovies
+package com.example.testzemoga
 
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.CoroutineScope

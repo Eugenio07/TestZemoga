@@ -1,8 +1,12 @@
 package com.example.testzemoga.ui.main.posts
 
-import androidx.lifecycle.ViewModel
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import com.example.domain.Either
-import com.example.interactivemovies.ScopedViewModel
+import com.example.domain.Event
+import com.example.domain.PostItem
+import com.example.testzemoga.ScopedViewModel
+import com.example.testzemoga.ui.main.posts.PostsViewModel.PostsModel.showPostList
 import com.example.usecases.PostUseCases
 import com.orhanobut.logger.Logger
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -13,9 +17,21 @@ import javax.inject.Inject
 @HiltViewModel
 class PostsViewModel @Inject constructor (private val postUseCases: PostUseCases, uiDispatcher: CoroutineDispatcher) : ScopedViewModel(uiDispatcher) {
 
+
+    private val _model = MutableLiveData<Event<PostsModel>>()
+    val model: LiveData<Event<PostsModel>>
+        get() = _model
+
+
+    sealed class PostsModel {
+        data class showPostList(val postsList: List<PostItem>) : PostsModel()
+    }
+
     init {
         initScope()
+        updatePosts()
     }
+
     fun updatePosts(){
         println("updatePosts")
         launch {
@@ -25,6 +41,7 @@ class PostsViewModel @Inject constructor (private val postUseCases: PostUseCases
                 }
                 is Either.Right -> {
                     Logger.d("Prueba post: ${response.r[0]}")
+                    _model.value = Event(showPostList(response.r))
                 }
             }
         }
