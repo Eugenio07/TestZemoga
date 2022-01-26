@@ -6,29 +6,34 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.testzemoga.R
 import com.example.testzemoga.databinding.FragmentMainBinding
+import dagger.hilt.android.AndroidEntryPoint
 
 /**
  * A placeholder fragment containing a simple view.
  */
+@AndroidEntryPoint
 class PlaceholderFragment : Fragment() {
 
-    private lateinit var pageViewModel: PageViewModel
+    private val pageViewModel: PageViewModel by viewModels()
     private var _binding: FragmentMainBinding? = null
 
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding!!
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        pageViewModel = ViewModelProvider(this).get(PageViewModel::class.java).apply {
-            setIndex(arguments?.getInt(ARG_SECTION_NUMBER) ?: 1)
-        }
-    }
+//    override fun onCreate(savedInstanceState: Bundle?) {
+//        super.onCreate(savedInstanceState)
+////        pageViewModel = ViewModelProvider(this).get(PageViewModel::class.java).apply {
+////            setIndex(arguments?.getInt(ARG_SECTION_NUMBER) ?: 1)
+////        }
+//
+//
+//    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -37,11 +42,12 @@ class PlaceholderFragment : Fragment() {
 
         _binding = FragmentMainBinding.inflate(inflater, container, false)
         val root = binding.root
-
+        pageViewModel.setIndex(arguments?.getInt(ARG_SECTION_NUMBER) ?: 1)
         val textView: TextView = binding.sectionLabel
         pageViewModel.text.observe(viewLifecycleOwner, Observer {
             textView.text = it
         })
+        pageViewModel.updatePosts()
         return root
     }
 

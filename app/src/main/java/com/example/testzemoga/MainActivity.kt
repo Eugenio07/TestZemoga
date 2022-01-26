@@ -10,7 +10,11 @@ import android.view.Menu
 import android.view.MenuItem
 import com.example.testzemoga.ui.main.SectionsPagerAdapter
 import com.example.testzemoga.databinding.ActivityMainBinding
+import com.orhanobut.logger.AndroidLogAdapter
+import com.orhanobut.logger.Logger
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
@@ -20,6 +24,9 @@ class MainActivity : AppCompatActivity() {
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        //Para inicializar el Logger
+        Logger.addLogAdapter(AndroidLogAdapter())
 
         val sectionsPagerAdapter = SectionsPagerAdapter(this, supportFragmentManager)
         val viewPager: ViewPager = binding.viewPager
