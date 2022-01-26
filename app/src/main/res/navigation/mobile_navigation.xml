@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@id/postContainer">
+
+    <fragment
+        android:id="@+id/contentFragment"
+        android:name="com.example.testzemoga.ui.content.ContentFragment"
+        android:label="content_fragment"
+        tools:layout="@layout/content_fragment" />
+    <fragment
+        android:id="@+id/favoritesFragment"
+        android:name="com.example.testzemoga.ui.main.favorites.FavoritesFragment"
+        android:label="favorites_fragment"
+        tools:layout="@layout/favorites_fragment" />
+    <fragment
+        android:id="@+id/postsFragment"
+        android:name="com.example.testzemoga.ui.main.posts.PostsFragment"
+        android:label="posts_fragment"
+        tools:layout="@layout/posts_fragment" />
+    <fragment
+        android:id="@+id/postContainer"
+        android:name="com.example.testzemoga.ui.main.PostContainer"
+        android:label="PostContainer"
+        tools:layout="@layout/post_container"/>
+</navigation>

@@ -1,8 +1,6 @@
-package com.example.testzemoga.ui.main
+package com.example.testzemoga.ui.main.posts
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Transformations
+import androidx.lifecycle.ViewModel
 import com.example.domain.Either
 import com.example.interactivemovies.ScopedViewModel
 import com.example.usecases.PostUseCases
@@ -13,21 +11,11 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class PageViewModel @Inject constructor (private val postUseCases: PostUseCases, uiDispatcher: CoroutineDispatcher) : ScopedViewModel(uiDispatcher) {
-
-    private val _index = MutableLiveData<Int>()
-    val text: LiveData<String> = Transformations.map(_index) {
-        "Hello world from section: $it"
-    }
+class PostsViewModel @Inject constructor (private val postUseCases: PostUseCases, uiDispatcher: CoroutineDispatcher) : ScopedViewModel(uiDispatcher) {
 
     init {
-        println("init vm")
         initScope()
-
-
-
     }
-
     fun updatePosts(){
         println("updatePosts")
         launch {
@@ -40,9 +28,5 @@ class PageViewModel @Inject constructor (private val postUseCases: PostUseCases,
                 }
             }
         }
-    }
-
-    fun setIndex(index: Int) {
-        _index.value = index
     }
 }
