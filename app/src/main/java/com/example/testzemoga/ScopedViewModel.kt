@@ -1,4 +1,4 @@
-package com.example.interactivemovies
+package com.example.testzemoga
 
 import androidx.annotation.CallSuper
 import androidx.lifecycle.ViewModel
