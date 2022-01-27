@@ -4,6 +4,8 @@ import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
+import android.view.View.INVISIBLE
+import android.view.View.VISIBLE
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
@@ -16,6 +18,8 @@ import com.example.testzemoga.ui.main.PostContainerDirections
 import com.example.testzemoga.ui.main.PostListener
 import com.example.testzemoga.ui.main.PostsAdapter
 import com.example.testzemoga.ui.main.favorites.FavoritesViewModel.FavoritesModel
+import com.example.testzemoga.ui.main.favorites.FavoritesViewModel.FavoritesModel.FavoriteListIsEmpty
+import com.example.testzemoga.ui.main.favorites.FavoritesViewModel.FavoritesModel.ShowFavoritesPostList
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -38,12 +42,18 @@ class FavoritesFragment : Fragment() {
     private fun changedUI(event: Event<FavoritesModel>) {
         event.getContentIfNotHandled()?.let { model ->
             when (model) {
-                is FavoritesModel.ShowFavoritesPostList -> {
+                is ShowFavoritesPostList -> {
+                    binding.listEmpty.visibility = INVISIBLE
+                    binding.rvFavoritesPosts.visibility = VISIBLE
                     binding.rvFavoritesPosts.adapter = PostsAdapter(model.postsList, PostListener { post ->
                         this.findNavController().navigate(
                             PostContainerDirections.actionPostContainerToContentFragment(post.id.toString())
                         )
                     })
+                }
+                is FavoriteListIsEmpty -> {
+                    binding.rvFavoritesPosts.visibility = INVISIBLE
+                    binding.listEmpty.visibility = VISIBLE
                 }
             }
         }

@@ -23,11 +23,7 @@ class MainActivity : AppCompatActivity() {
         //Para inicializar el Logger
         Logger.addLogAdapter(AndroidLogAdapter())
         setSupportActionBar(binding.appBar)
-        val fab: FloatingActionButton = binding.fab
 
-        fab.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show()
-        }
+
     }
 }

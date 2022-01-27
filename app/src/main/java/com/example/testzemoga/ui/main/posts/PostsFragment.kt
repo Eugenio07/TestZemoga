@@ -2,6 +2,8 @@ package com.example.testzemoga.ui.main.posts
 
 import android.os.Bundle
 import android.view.*
+import android.view.View.INVISIBLE
+import android.view.View.VISIBLE
 import androidx.fragment.app.Fragment
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
@@ -29,7 +31,7 @@ class PostsFragment : Fragment() {
     ): View {
         binding = DataBindingUtil.inflate(inflater, R.layout.posts_fragment, container, false)
         binding.viewModel = viewModel
-        viewModel.updatePosts()
+        viewModel.findPosts()
         viewModel.model.observe(viewLifecycleOwner, Observer(::changedUI))
         setHasOptionsMenu(true)
         return binding.root
@@ -39,11 +41,17 @@ class PostsFragment : Fragment() {
         event.getContentIfNotHandled()?.let { model ->
             when (model) {
                 is PostsModel.ShowPostList -> {
+                    binding.listEmpty.visibility = INVISIBLE
+                    binding.rvPosts.visibility = VISIBLE
                     binding.rvPosts.adapter = PostsAdapter(model.postsList, PostListener { post ->
                         this.findNavController().navigate(
                             PostContainerDirections.actionPostContainerToContentFragment(post.id.toString())
                         )
                     })
+                }
+                PostsModel.ListIsEmpty -> {
+                    binding.rvPosts.visibility = INVISIBLE
+                    binding.listEmpty.visibility = VISIBLE
                 }
             }
         }

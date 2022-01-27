@@ -10,29 +10,30 @@ class PostRepository(
     private val localDataSource: LocalDataSource,
     private val remoteDataSource: RemoteDataSource
 ) {
-    suspend fun getPosts(): Either<String, List<PostItem>> {
-        if (localDataSource.postListIsEmpty()) {
-            when (val response = remoteDataSource.getPosts()) {
-                is Either.Left -> return Either.Left(response.l)
-                is Either.Right -> localDataSource.insertPosts(response.r)
+    suspend fun getPostFromWEB(): Either<String, List<PostItem>> =
+        when (val response = remoteDataSource.getPosts()) {
+            is Either.Left -> Either.Left(response.l)
+            is Either.Right -> {
+                localDataSource.insertPosts(response.r)
+                Either.Right(localDataSource.getAllPosts())
             }
         }
-        return Either.Right(localDataSource.getAllPosts())
-    }
 
-    suspend fun getFavoritesPosts(): Either<String, List<PostItem>>{
-        return if(localDataSource.postListIsEmpty()) Either.Left("Favorites list is empty") else{
-            Either.Right(localDataSource.getFavoritesPosts())
-        }
-    }
+    suspend fun getPostFromDB(): Either<String, List<PostItem>> =
+        if (localDataSource.postListIsEmpty()) Either.Left("List is empty")
+        else Either.Right(localDataSource.getAllPosts())
+
+    suspend fun getFavoritesPosts(): Either<String, List<PostItem>> =
+        if (localDataSource.favoritesPostListIsEmpty()) Either.Left("Favorites list is empty")
+        else Either.Right(localDataSource.getFavoritesPosts())
 
     suspend fun getPostByID(postID: String): PostItem = localDataSource.getPostByID(postID)
 
-    suspend fun deleteAllPosts(posts: List<PostItem>){
-        localDataSource.deleteAllPosts(posts)
+    suspend fun deleteAllPosts(/*posts: List<PostItem>*/) {
+        localDataSource.deleteAllPosts(/*posts*/)
     }
 
-    suspend fun deletePost(post: PostItem){
+    suspend fun deletePost(post: PostItem) {
         localDataSource.deletePost(post)
     }
 

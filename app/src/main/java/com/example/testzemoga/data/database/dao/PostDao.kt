@@ -2,6 +2,7 @@ package com.example.testzemoga.data.database.dao
 
 import androidx.room.*
 import com.example.testzemoga.data.database.entity.PostDB
+import retrofit2.http.DELETE
 
 @Dao
 interface PostDao {
@@ -12,11 +13,11 @@ interface PostDao {
     @Query("SELECT COUNT(id) FROM PostDB WHERE favorite = 1")
     fun favoritesPostsCount(): Int
 
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertPosts(posts: List<PostDB>)
 
-    @Delete
-    fun deleteAllPosts(posts: List<PostDB>)
+    @Query("DELETE FROM PostDB")
+    fun deleteAllPosts(/*posts: List<PostDB>*/)
 
     @Delete
     fun deletePost(post: PostDB)

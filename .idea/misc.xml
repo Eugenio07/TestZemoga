@@ -3,6 +3,7 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/ermu7/AndroidStudioProjects/TestZemoga/app/src/main/res/drawable/ic_delete.xml" value="0.18958333333333333" />
         <entry key="..\:/Users/ermu7/AndroidStudioProjects/TestZemoga/app/src/main/res/layout/activity_main.xml" value="0.1" />
         <entry key="..\:/Users/ermu7/AndroidStudioProjects/TestZemoga/app/src/main/res/layout/comment_item.xml" value="0.25833333333333336" />
         <entry key="..\:/Users/ermu7/AndroidStudioProjects/TestZemoga/app/src/main/res/layout/content_fragment.xml" value="0.2" />
@@ -11,7 +12,7 @@
         <entry key="..\:/Users/ermu7/AndroidStudioProjects/TestZemoga/app/src/main/res/layout/fragment_main.xml" value="0.16843971631205673" />
         <entry key="..\:/Users/ermu7/AndroidStudioProjects/TestZemoga/app/src/main/res/layout/post_container.xml" value="0.12092391304347826" />
         <entry key="..\:/Users/ermu7/AndroidStudioProjects/TestZemoga/app/src/main/res/layout/post_item.xml" value="0.45" />
-        <entry key="..\:/Users/ermu7/AndroidStudioProjects/TestZemoga/app/src/main/res/layout/posts_fragment.xml" value="0.15364583333333334" />
+        <entry key="..\:/Users/ermu7/AndroidStudioProjects/TestZemoga/app/src/main/res/layout/posts_fragment.xml" value="0.359375" />
         <entry key="..\:/Users/ermu7/AndroidStudioProjects/TestZemoga/app/src/main/res/menu/content_menu.xml" value="0.16979166666666667" />
         <entry key="..\:/Users/ermu7/AndroidStudioProjects/TestZemoga/app/src/main/res/menu/principal_menu.xml" value="0.16979166666666667" />
       </map>

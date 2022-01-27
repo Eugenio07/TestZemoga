@@ -21,8 +21,8 @@ class RoomDataSource(dataBase: AppDataBase) : LocalDataSource {
         withContext(Dispatchers.IO) { postDao.insertPosts(posts.map { it.toPostDB() }) }
     }
 
-    override suspend fun deleteAllPosts(posts: List<PostItem>) {
-        withContext(Dispatchers.IO) { postDao.deleteAllPosts(posts.map { it.toPostDB() }) }
+    override suspend fun deleteAllPosts(/*posts: List<PostItem>*/) {
+        withContext(Dispatchers.IO) { postDao.deleteAllPosts(/*posts.map { it.toPostDB() }*/) }
     }
 
     override suspend fun deletePost(post: PostItem) {
