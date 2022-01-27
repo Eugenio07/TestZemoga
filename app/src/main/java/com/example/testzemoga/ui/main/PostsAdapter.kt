@@ -20,6 +20,7 @@ class PostsAdapter(private val postList: List<PostItem>, private val clickListen
                 binding.post = item
                 binding.postTitle.text = item.title
                 binding.postUser.text = item.userId.toString()
+                binding.imUnread.visibility = if (item.read) INVISIBLE else VISIBLE
                 binding.imFavorite.visibility = if(item.favorite) VISIBLE else INVISIBLE
                 binding.clickListener = clickListener
             }

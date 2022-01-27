@@ -6,7 +6,7 @@ import com.example.testzemoga.data.database.entity.PostDB
 import com.example.testzemoga.data.server.networkAPI.CommentsResponse
 import com.example.testzemoga.data.server.networkAPI.PostResponse
 
-fun PostResponse.toPostDomainItem(): PostItem = PostItem(userId, id, title, body)
+fun PostResponse.toPostDomainItem(): PostItem = PostItem(userId, id, title, body, read = id>20)
 
 fun PostItem.toPostDB(): PostDB = PostDB(userId, id.toString(), title, body, favorite, read)
 

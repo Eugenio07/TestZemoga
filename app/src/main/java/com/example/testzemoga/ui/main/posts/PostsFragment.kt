@@ -44,6 +44,7 @@ class PostsFragment : Fragment() {
                     binding.listEmpty.visibility = INVISIBLE
                     binding.rvPosts.visibility = VISIBLE
                     binding.rvPosts.adapter = PostsAdapter(model.postsList, PostListener { post ->
+                        viewModel.markAsRead(post)
                         this.findNavController().navigate(
                             PostContainerDirections.actionPostContainerToContentFragment(post.id.toString())
                         )

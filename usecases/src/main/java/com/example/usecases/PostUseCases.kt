@@ -24,6 +24,9 @@ class PostUseCases(private val postRepository: PostRepository) {
         copy(favorite = !favorite).also { postRepository.updatePost(it) }
     }
 
+    suspend fun markAsRead(post: PostItem) = with(post) {
+        copy(read = true).also { postRepository.updatePost(it) }
+    }
 
     suspend fun getComments(postID: String): Either<String, List<CommentItem>> =
         postRepository.getComments(postID)
