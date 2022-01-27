@@ -1,14 +1,17 @@
-package com.example.testzemoga.ui.main.posts
+package com.example.testzemoga.ui.main
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.domain.PostItem
 import com.example.testzemoga.databinding.PostItemBinding
-import com.example.testzemoga.ui.main.posts.PostsAdapter.PostHolder
+import com.example.testzemoga.ui.main.PostsAdapter.PostHolder
 
 class PostsAdapter(private val postList: List<PostItem>, private val clickListener: PostListener) :
-    RecyclerView.Adapter<PostHolder>(){
+    ListAdapter<PostItem, PostHolder>(CartDiffCallback()){
+
     class PostHolder(private val binding: PostItemBinding):
         RecyclerView.ViewHolder(binding.root) {
             fun render(item: PostItem, clickListener: PostListener){
@@ -30,6 +33,17 @@ class PostsAdapter(private val postList: List<PostItem>, private val clickListen
     }
 
     override fun getItemCount(): Int = postList.size
+}
+
+class CartDiffCallback: DiffUtil.ItemCallback<PostItem>() {
+    override fun areItemsTheSame(oldItem: PostItem, newItem: PostItem): Boolean {
+        return oldItem.id == newItem.id
+    }
+
+    override fun areContentsTheSame(oldItem: PostItem, newItem: PostItem): Boolean {
+        return oldItem == newItem
+    }
+
 }
 
 class PostListener(val clickListener: (post: PostItem) -> Unit){

@@ -1,9 +1,6 @@
 package com.example.testzemoga.data.database.dao
 
-import androidx.room.Dao
-import androidx.room.Delete
-import androidx.room.Insert
-import androidx.room.Query
+import androidx.room.*
 import com.example.testzemoga.data.database.entity.PostDB
 
 @Dao
@@ -11,6 +8,9 @@ interface PostDao {
 
     @Query("SELECT COUNT(id) FROM PostDB")
     fun postsCount(): Int
+
+    @Query("SELECT COUNT(id) FROM PostDB WHERE favorite = 1")
+    fun favoritesPostsCount(): Int
 
     @Insert
     fun insertPosts(posts: List<PostDB>)
@@ -24,6 +24,12 @@ interface PostDao {
     @Query("SELECT * FROM PostDB")
     fun getAllPosts(): List<PostDB>
 
+    @Query("SELECT * FROM PostDB WHERE favorite = 1")
+    fun getFavoritesPosts(): List<PostDB>
+
     @Query("SELECT * FROM PostDB WHERE id = :postID")
     fun getPostByID(postID: String): PostDB
+
+    @Update
+    fun updatePost(post: PostDB)
 }

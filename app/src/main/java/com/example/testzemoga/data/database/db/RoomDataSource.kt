@@ -14,6 +14,9 @@ class RoomDataSource(dataBase: AppDataBase) : LocalDataSource {
     override suspend fun postListIsEmpty(): Boolean =
         withContext(Dispatchers.IO) { postDao.postsCount() == 0 }
 
+    override suspend fun favoritesPostListIsEmpty(): Boolean =
+        withContext(Dispatchers.IO) { postDao.favoritesPostsCount() == 0 }
+
     override suspend fun insertPosts(posts: List<PostItem>) {
         withContext(Dispatchers.IO) { postDao.insertPosts(posts.map { it.toPostDB() }) }
     }
@@ -29,6 +32,13 @@ class RoomDataSource(dataBase: AppDataBase) : LocalDataSource {
     override suspend fun getAllPosts(): List<PostItem> =
         withContext(Dispatchers.IO) { postDao.getAllPosts().map { it.toPostDomainItem() } }
 
+    override suspend fun getFavoritesPosts(): List<PostItem> =
+        withContext(Dispatchers.IO) { postDao.getFavoritesPosts().map { it.toPostDomainItem() } }
+
     override suspend fun getPostByID(postID: String): PostItem =
         withContext(Dispatchers.IO) { postDao.getPostByID(postID).toPostDomainItem() }
+
+    override suspend fun updatePost(post: PostItem) {
+        withContext(Dispatchers.IO) { postDao.updatePost(post.toPostDB()) }
+    }
 }

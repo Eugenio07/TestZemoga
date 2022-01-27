@@ -6,7 +6,7 @@ import com.example.domain.Either
 import com.example.domain.Event
 import com.example.domain.PostItem
 import com.example.testzemoga.ScopedViewModel
-import com.example.testzemoga.ui.main.posts.PostsViewModel.PostsModel.showPostList
+import com.example.testzemoga.ui.main.posts.PostsViewModel.PostsModel.ShowPostList
 import com.example.usecases.PostUseCases
 import com.orhanobut.logger.Logger
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -27,12 +27,11 @@ class PostsViewModel @Inject constructor(
 
 
     sealed class PostsModel {
-        data class showPostList(val postsList: List<PostItem>) : PostsModel()
+        data class ShowPostList(val postsList: List<PostItem>) : PostsModel()
     }
 
     init {
         initScope()
-        updatePosts()
     }
 
     fun updatePosts() {
@@ -43,7 +42,7 @@ class PostsViewModel @Inject constructor(
                 }
                 is Either.Right -> {
                     Logger.d("Prueba post: ${response.r[0]}")
-                    _model.value = Event(showPostList(response.r))
+                    _model.value = Event(ShowPostList(response.r))
                 }
             }
         }

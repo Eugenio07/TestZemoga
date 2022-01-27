@@ -5,4 +5,10 @@
     <string name="title_posts">Posts</string>
     <string name="title_favorites">Favorites</string>
     <string name="posted_by">Posted by: </string>
+    <string name="comments">Comments</string>
+    <string name="reload">Reload</string>
+    <string name="post_added_to_favorites">Post added to favorites</string>
+    <string name="post_removed_to_favorites">Post removed to favorites</string>
+
+
 </resources>
