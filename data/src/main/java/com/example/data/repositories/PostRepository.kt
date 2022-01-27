@@ -10,11 +10,27 @@ class PostRepository(
     private val localDataSource: LocalDataSource,
     private val remoteDataSource: RemoteDataSource
 ) {
-    suspend fun getPosts() : Either<String, List<PostItem>> {
-        return remoteDataSource.getPosts()
+    suspend fun getPosts(): Either<String, List<PostItem>> {
+        if (localDataSource.postListIsEmpty()) {
+            when (val response = remoteDataSource.getPosts()) {
+                is Either.Left -> return Either.Left(response.l)
+                is Either.Right -> localDataSource.insertPosts(response.r)
+            }
+        }
+        return Either.Right(localDataSource.getAllPosts())
     }
 
-    suspend fun getComments(postID: String) : Either<String, List<CommentItem>>{
+    suspend fun getPostByID(postID: String): PostItem = localDataSource.getPostByID(postID)
+
+    suspend fun deleteAllPosts(posts: List<PostItem>){
+        localDataSource.deleteAllPosts(posts)
+    }
+
+    suspend fun deletePost(post: PostItem){
+        localDataSource.deletePost(post)
+    }
+
+    suspend fun getComments(postID: String): Either<String, List<CommentItem>> {
         return remoteDataSource.getComments(postID)
     }
 }

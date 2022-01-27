@@ -32,6 +32,7 @@ class ContentViewModel @Inject constructor(
     init {
         initScope()
         updateComments()
+        updateContent()
     }
 
     sealed class ContentModel {
@@ -46,10 +47,18 @@ class ContentViewModel @Inject constructor(
                     Logger.d("error en la API: ${response.l}")
                 }
                 is Either.Right -> {
-                    Logger.d("Prueba post: ${response.r[0]}")
+                    Logger.d("Prueba comment: ${response.r[0]}")
                     _model.value = Event(showPostComments(response.r))
                 }
             }
+        }
+    }
+
+    private fun updateContent() {
+        launch {
+            val response = postUseCases.getPostByID(postID)
+            Logger.d("Prueba post: $response")
+            // _model.value = Event(showPostComments(response.r))
         }
     }
 }
