@@ -15,7 +15,10 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class PostsViewModel @Inject constructor (private val postUseCases: PostUseCases, uiDispatcher: CoroutineDispatcher) : ScopedViewModel(uiDispatcher) {
+class PostsViewModel @Inject constructor(
+    private val postUseCases: PostUseCases,
+    uiDispatcher: CoroutineDispatcher
+) : ScopedViewModel(uiDispatcher) {
 
 
     private val _model = MutableLiveData<Event<PostsModel>>()
@@ -32,10 +35,9 @@ class PostsViewModel @Inject constructor (private val postUseCases: PostUseCases
         updatePosts()
     }
 
-    fun updatePosts(){
-        println("updatePosts")
+    fun updatePosts() {
         launch {
-            when (val response =  postUseCases.getPosts()) {
+            when (val response = postUseCases.getPosts()) {
                 is Either.Left -> {
                     Logger.d("error en la API: ${response.l}")
                 }

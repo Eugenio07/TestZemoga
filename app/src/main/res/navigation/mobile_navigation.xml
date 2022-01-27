@@ -9,7 +9,11 @@
         android:id="@+id/contentFragment"
         android:name="com.example.testzemoga.ui.content.ContentFragment"
         android:label="content_fragment"
-        tools:layout="@layout/content_fragment" />
+        tools:layout="@layout/content_fragment" >
+        <argument
+            android:name="PostID"
+            app:argType="string" />
+    </fragment>
     <fragment
         android:id="@+id/favoritesFragment"
         android:name="com.example.testzemoga.ui.main.favorites.FavoritesFragment"
@@ -24,5 +28,9 @@
         android:id="@+id/postContainer"
         android:name="com.example.testzemoga.ui.main.PostContainer"
         android:label="PostContainer"
-        tools:layout="@layout/post_container"/>
+        tools:layout="@layout/post_container">
+        <action
+            android:id="@+id/action_postContainer_to_contentFragment"
+            app:destination="@id/contentFragment" />
+    </fragment>
 </navigation>
