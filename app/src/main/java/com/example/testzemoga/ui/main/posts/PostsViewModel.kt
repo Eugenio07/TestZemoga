@@ -79,4 +79,10 @@ class PostsViewModel @Inject constructor(
             postUseCases.markAsRead(post)
         }
     }
+
+    fun deletePost(post: PostItem){
+        launch {
+            postUseCases.deletePost(post)
+        }
+    }
 }
