@@ -11,6 +11,8 @@
     <string name="post_removed_to_favorites">Post removed to favorites</string>
     <string name="favorites_list_is_empty">Favorites list is empty</string>
     <string name="list_is_empty">Post list is empty\nPlease reload</string>
+    <string name="post_deleted">Post number %s has been deleted</string>
+
 
 
 </resources>
