@@ -73,4 +73,10 @@ class PostsViewModel @Inject constructor(
             }
         }
     }
+
+    fun markAsRead(post: PostItem){
+        launch {
+            postUseCases.markAsRead(post)
+        }
+    }
 }
