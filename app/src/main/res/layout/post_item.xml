@@ -10,7 +10,7 @@
 
         <variable
             name="clickListener"
-            type="com.example.testzemoga.ui.main.posts.PostListener" />
+            type="com.example.testzemoga.ui.main.PostListener" />
 
     </data>
 

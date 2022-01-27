@@ -7,7 +7,7 @@ import com.example.domain.Either
 import com.example.domain.Event
 import com.example.domain.PostItem
 import com.example.testzemoga.ScopedViewModel
-import com.example.testzemoga.ui.content.ContentViewModel.ContentModel.showPostComments
+import com.example.testzemoga.ui.content.ContentViewModel.ContentModel.*
 import com.example.usecases.PostUseCases
 import com.orhanobut.logger.Logger
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -28,15 +28,18 @@ class ContentViewModel @Inject constructor(
     val model: LiveData<Event<ContentModel>>
         get() = _model
 
+    lateinit var post: PostItem
 
     init {
         initScope()
         updateComments()
+        updateContent()
     }
 
     sealed class ContentModel {
-        data class showPostContent(val posts: PostItem) : ContentModel()
-        data class showPostComments(val comments: List<CommentItem>) : ContentModel()
+        data class ShowPostContent(val post: PostItem) : ContentModel()
+        data class ShowPostComments(val comments: List<CommentItem>) : ContentModel()
+        data class ToggleFavorite(val favorite: Boolean): ContentModel()
     }
 
     private fun updateComments() {
@@ -46,10 +49,24 @@ class ContentViewModel @Inject constructor(
                     Logger.d("error en la API: ${response.l}")
                 }
                 is Either.Right -> {
-                    Logger.d("Prueba post: ${response.r[0]}")
-                    _model.value = Event(showPostComments(response.r))
+                    Logger.d("Prueba comment: ${response.r[0]}")
+                    _model.value = Event(ShowPostComments(response.r))
                 }
             }
+        }
+    }
+
+    private fun updateContent() {
+        launch {
+            post = postUseCases.getPostByID(postID)
+             _model.value = Event(ShowPostContent(post))
+        }
+    }
+
+    fun toggleFavorite(){
+        launch {
+            post = postUseCases.toggleFavorite(post)
+            _model.value = Event(ToggleFavorite(post.favorite))
         }
     }
 }
