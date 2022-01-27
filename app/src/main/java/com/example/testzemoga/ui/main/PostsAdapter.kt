@@ -1,6 +1,8 @@
 package com.example.testzemoga.ui.main
 
 import android.view.LayoutInflater
+import android.view.View.INVISIBLE
+import android.view.View.VISIBLE
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
@@ -18,6 +20,7 @@ class PostsAdapter(private val postList: List<PostItem>, private val clickListen
                 binding.post = item
                 binding.postTitle.text = item.title
                 binding.postUser.text = item.userId.toString()
+                binding.imFavorite.visibility = if(item.favorite) VISIBLE else INVISIBLE
                 binding.clickListener = clickListener
             }
         }
