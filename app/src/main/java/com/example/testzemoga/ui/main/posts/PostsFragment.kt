@@ -8,9 +8,11 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import com.example.domain.Event
 import com.example.testzemoga.R
 import com.example.testzemoga.databinding.PostsFragmentBinding
+import com.example.testzemoga.ui.main.PostContainerDirections
 import com.example.testzemoga.ui.main.posts.PostsViewModel.PostsModel
 import com.orhanobut.logger.Logger
 import dagger.hilt.android.AndroidEntryPoint
@@ -38,7 +40,9 @@ class PostsFragment : Fragment() {
             when (model) {
                 is PostsModel.showPostList -> {
                     binding.rvPosts.adapter = PostsAdapter(model.postsList, PostListener { post ->
-                        Logger.d(post)
+                        this.findNavController().navigate(
+                            PostContainerDirections.actionPostContainerToContentFragment(post.id.toString())
+                        )
                     })
                 }
             }
